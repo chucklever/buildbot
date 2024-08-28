@@ -6,4 +6,5 @@ http.*
 services.py
 state.sqlite
 twistd.*
+webusers.py
 workers/
