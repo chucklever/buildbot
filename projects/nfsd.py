@@ -115,6 +115,7 @@ kdevopsLtsSchedulerNames = [
     "nfsd-6-1-y",
     "nfsd-5-15-y",
     "nfsd-5-10-y",
+    "nfsd-5-4-y",
 ]
 
 # Builders that build the test kernel on the control node
@@ -221,6 +222,7 @@ c["change_source"].append(
     changes.GitPoller(
         "https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git",
         branches=[
+            "nfsd-5.4.y",
             "nfsd-5.10.y",
             "nfsd-5.15.y",
             "nfsd-6.1.y",
@@ -301,3 +303,5 @@ kdevops_force_schedulers(sched_name="nfsd-6-1-y")
 kdevops_force_schedulers(sched_name="nfsd-5-15-y")
 
 kdevops_force_schedulers(sched_name="nfsd-5-10-y")
+
+kdevops_force_schedulers(sched_name="nfsd-5-4-y")
