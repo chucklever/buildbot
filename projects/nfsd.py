@@ -105,24 +105,21 @@ def kdevops_builder(branch, workflow, workerList):
 kdevopsSchedulerNames = [
     "fs-next",
     "fs-current",
+    "queue-6-9",
+    "queue-6-6",
+    "queue-6-1",
+    "queue-5-15",
+    "queue-5-10",
+    "queue-5-4",
     "nfsd-next",
     "nfsd-fixes",
     "nfsd-testing",
-    "queue-6-9",
-    "queue-6-6",
-]
-
-kdevopsLtsSchedulerNames = [
     "nfsd-6-9-y",
     "nfsd-6-6-y",
     "nfsd-6-1-y",
     "nfsd-5-15-y",
     "nfsd-5-10-y",
     "nfsd-5-4-y",
-    "queue-6-1",
-    "queue-5-15",
-    "queue-5-10",
-    "queue-5-4",
 ]
 
 # Builders that build the test kernel on the control node
@@ -173,54 +170,6 @@ for sched_name in kdevopsSchedulerNames:
             [
                 "kdevops-small",
                 "kdevops-large",
-            ],
-        )
-    )
-
-# Builders that build the test kernel on the target nodes
-for sched_name in kdevopsLtsSchedulerNames:
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "fstests",
-            [
-                "kdevops-large",
-            ],
-        )
-    )
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "gitr",
-            [
-                "kdevops-large",
-            ],
-        )
-    )
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "ltp",
-            [
-                "kdevops-large",
-            ],
-        )
-    )
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "nfstest",
-            [
-                "kdevops-large",
-            ],
-        )
-    )
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "pynfs",
-            [
-                "kdevops-small",
             ],
         )
     )
