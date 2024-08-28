@@ -103,7 +103,8 @@ def kdevops_builder(branch, workflow, workerList):
 
 
 kdevopsSchedulerNames = [
-    "linux-next",
+    "fs-next",
+    "fs-current",
     "nfsd-next",
     "nfsd-fixes",
     "nfsd-testing",
@@ -271,12 +272,21 @@ def kdevops_force_schedulers(sched_name):
         )
 
 
-kdevops_branch_scheduler(
-    sched_name="linux-next",
+kdevops_nightly_scheduler(
+    sched_name="fs-next",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git",
-    watched_branch="master",
+    watched_branch="fs-next",
+    hour=7,
 )
-kdevops_force_schedulers(sched_name="linux-next")
+kdevops_force_schedulers(sched_name="fs-next")
+
+kdevops_nightly_scheduler(
+    sched_name="fs-current",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git",
+    watched_branch="fs-current",
+    hour=9,
+)
+kdevops_force_schedulers(sched_name="fs-current")
 
 kdevops_force_schedulers(sched_name="nfsd-next")
 
