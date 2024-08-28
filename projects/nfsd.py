@@ -6,9 +6,6 @@ c["projects"].append(
 )
 
 c["workers"].append(
-    worker.Worker("kdevops-tiny", util.Secret("worker-kdevops-tiny"), max_builds=1)
-)
-c["workers"].append(
     worker.Worker("kdevops-small", util.Secret("worker-kdevops-small"), max_builds=1)
 )
 c["workers"].append(
@@ -274,7 +271,6 @@ for sched_name in kdevopsSchedulerNames:
             [
                 "kdevops-huge2",
                 "kdevops-huge",
-                "kdevops-small",
             ],
         )
     )
@@ -285,7 +281,6 @@ for sched_name in kdevopsSchedulerNames:
             [
                 "kdevops-huge2",
                 "kdevops-huge",
-                "kdevops-small",
             ],
         )
     )
@@ -294,7 +289,7 @@ for sched_name in kdevopsSchedulerNames:
             sched_name,
             "pynfs",
             [
-                "kdevops-tiny",
+                "kdevops-small",
             ],
         )
     )
