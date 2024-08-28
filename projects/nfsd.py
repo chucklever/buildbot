@@ -34,6 +34,14 @@ def kdevops_factory(testBranch, workflow):
             shallow=True,
         ),
         steps.ShellCommand(
+            name="configure refs",
+            description="configuring",
+            descriptionDone="configure",
+            command=["make", f"refs-default"],
+            workdir="build/",
+            haltOnFailure=False,
+        ),
+        steps.ShellCommand(
             name="configure kdevops",
             description="configuring",
             descriptionDone="configure",
@@ -121,6 +129,14 @@ def kdevops_fstests_factory(testBranch, workflow):
             alwaysUseLatest=True,
             progress=False,
             shallow=True,
+        ),
+        steps.ShellCommand(
+            name="configure refs",
+            description="configuring",
+            descriptionDone="configure",
+            command=["make", f"refs-default"],
+            workdir="build/",
+            haltOnFailure=False,
         ),
         steps.ShellCommand(
             name="configure kdevops",
