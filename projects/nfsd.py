@@ -31,7 +31,7 @@ def kdevops_factory(testBranch, workflow):
             name="configure kdevops",
             description="configuring",
             descriptionDone="configure",
-            command=["make", f"defconfig-{testBranch}-{workflow}"],
+            command=["make", f"defconfig-nfsd-{workflow}"],
             workdir="build/",
             haltOnFailure=True,
         ),
