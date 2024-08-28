@@ -121,6 +121,7 @@ kdevopsLtsSchedulerNames = [
     "queue-6-1",
     "queue-5-15",
     "queue-5-10",
+    "queue-5-4",
 ]
 
 # Builders that build the test kernel on the control node
@@ -334,3 +335,11 @@ kdevops_nightly_scheduler(
     hour=3,
 )
 kdevops_force_schedulers(sched_name="queue-5-10")
+
+kdevops_nightly_scheduler(
+    sched_name="queue-5-4",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
+    watched_branch="queue/5.4",
+    hour=5,
+)
+kdevops_force_schedulers(sched_name="queue-5-4")
