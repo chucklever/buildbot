@@ -108,6 +108,7 @@ kdevopsSchedulerNames = [
     "nfsd-fixes",
     "nfsd-testing",
     "queue-6-9",
+    "queue-6-6",
 ]
 
 kdevopsLtsSchedulerNames = [
@@ -298,3 +299,11 @@ kdevops_nightly_scheduler(
     hour=19,
 )
 kdevops_force_schedulers(sched_name="queue-6-9")
+
+kdevops_nightly_scheduler(
+    sched_name="queue-6-6",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
+    watched_branch="queue/6.6",
+    hour=21,
+)
+kdevops_force_schedulers(sched_name="queue-6-6")
