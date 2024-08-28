@@ -234,6 +234,7 @@ def kdevops_fstests_builder(branch, workflow, workerList):
 kdevopsSchedulerNames = [
     "fs-next",
     "fs-current",
+    "queue-6-10",
     "queue-6-6",
     "queue-6-1",
     "queue-5-15",
@@ -369,7 +370,7 @@ kdevops_nightly_scheduler(
     sched_name="fs-next",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git",
     watched_branch="fs-next",
-    hour=7,
+    hour=8,
 )
 kdevops_force_schedulers(sched_name="fs-next")
 
@@ -377,7 +378,7 @@ kdevops_nightly_scheduler(
     sched_name="fs-current",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git",
     watched_branch="fs-current",
-    hour=9,
+    hour=10,
 )
 kdevops_force_schedulers(sched_name="fs-current")
 
@@ -398,10 +399,18 @@ kdevops_force_schedulers(sched_name="nfsd-5-10-y")
 kdevops_force_schedulers(sched_name="nfsd-5-4-y")
 
 kdevops_nightly_scheduler(
+    sched_name="queue-6-10",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
+    watched_branch="queue/6.10",
+    hour=18,
+)
+kdevops_force_schedulers(sched_name="queue-6-10")
+
+kdevops_nightly_scheduler(
     sched_name="queue-6-6",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
     watched_branch="queue/6.6",
-    hour=21,
+    hour=20,
 )
 kdevops_force_schedulers(sched_name="queue-6-6")
 
@@ -409,7 +418,7 @@ kdevops_nightly_scheduler(
     sched_name="queue-6-1",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
     watched_branch="queue/6.1",
-    hour=23,
+    hour=22,
 )
 kdevops_force_schedulers(sched_name="queue-6-1")
 
@@ -417,7 +426,7 @@ kdevops_nightly_scheduler(
     sched_name="queue-5-15",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
     watched_branch="queue/5.15",
-    hour=1,
+    hour=0,
 )
 kdevops_force_schedulers(sched_name="queue-5-15")
 
@@ -425,7 +434,7 @@ kdevops_nightly_scheduler(
     sched_name="queue-5-10",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
     watched_branch="queue/5.10",
-    hour=3,
+    hour=2,
 )
 kdevops_force_schedulers(sched_name="queue-5-10")
 
@@ -433,7 +442,7 @@ kdevops_nightly_scheduler(
     sched_name="queue-5-4",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
     watched_branch="queue/5.4",
-    hour=5,
+    hour=4,
 )
 kdevops_force_schedulers(sched_name="queue-5-4")
 
@@ -441,6 +450,6 @@ kdevops_nightly_scheduler(
     sched_name="localio",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/snitzer/linux.git/",
     watched_branch="nfs-localio-for-next",
-    hour=19,
+    hour=6,
 )
 kdevops_force_schedulers(sched_name="localio")
