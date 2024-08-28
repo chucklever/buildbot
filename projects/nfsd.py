@@ -218,22 +218,6 @@ for sched_name in kdevopsLtsSchedulerNames:
         )
     )
 
-c["change_source"].append(
-    changes.GitPoller(
-        "https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git",
-        branches=[
-            "nfsd-5.4.y",
-            "nfsd-5.10.y",
-            "nfsd-5.15.y",
-            "nfsd-6.1.y",
-            "nfsd-6.6.y",
-            "nfsd-6.9.y",
-            "nfsd-testing",
-            "nfsd-fixes",
-            "nfsd-next",
-        ],
-    )
-)
 
 kdevopsWorkflowNames = ["fstests", "gitr", "ltp", "nfstest", "pynfs"]
 
