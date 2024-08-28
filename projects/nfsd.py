@@ -12,6 +12,9 @@ c["workers"].append(
     worker.Worker("kdevops-large", util.Secret("worker-kdevops-large"), max_builds=1),
 )
 c["workers"].append(
+    worker.Worker("kdevops-large2", util.Secret("worker-kdevops-large2"), max_builds=1),
+)
+c["workers"].append(
     worker.Worker("kdevops-huge", util.Secret("worker-kdevops-huge"), max_builds=1)
 )
 c["workers"].append(
@@ -194,7 +197,7 @@ def kdevops_fstests_factory(testBranch, workflow):
             description="importing",
             descriptionDone="import",
             command=[
-                "/usr/local/home/kdevops/bin/xfstestsdb-import.sh",
+                "/usr/local/bin/xfstestsdb-import.sh",
                 f"{testBranch}-{workflow}",
             ],
             workdir="build/",
@@ -250,6 +253,7 @@ for sched_name in kdevopsSchedulerNames:
             sched_name,
             "fstests",
             [
+                "kdevops-large2",
                 "kdevops-large",
             ],
         )
