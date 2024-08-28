@@ -277,16 +277,6 @@ def kdevops_force_schedulers(sched_name):
 
 c["schedulers"] = [
     schedulers.ForceScheduler(
-        name="force-nfsd-testing",
-        builderNames=[
-            "nfsd-testing-fstests",
-            "nfsd-testing-gitr",
-            "nfsd-testing-ltp",
-            "nfsd-testing-nfstest",
-            "nfsd-testing-pynfs",
-        ],
-    ),
-    schedulers.ForceScheduler(
         name="force-nfsd-6-1-y",
         builderNames=[
             "nfsd-6.1.y-fstests",
@@ -328,3 +318,5 @@ kdevops_force_schedulers(sched_name="linux-next")
 kdevops_force_schedulers(sched_name="nfsd-next")
 
 kdevops_force_schedulers(sched_name="nfsd-fixes")
+
+kdevops_force_schedulers(sched_name="nfsd-testing")
