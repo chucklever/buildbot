@@ -103,6 +103,7 @@ def kdevops_builder(branch, workflow, workerList):
 
 
 kdevopsSchedulerNames = [
+    "linux-next",
     "nfsd-next",
     "nfsd-fixes",
     "nfsd-testing",
@@ -366,3 +367,10 @@ c["schedulers"] = [
         ],
     ),
 ]
+
+kdevops_branch_scheduler(
+    sched_name="linux-next",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git",
+    watched_branch="master",
+)
+kdevops_force_schedulers(sched_name="linux-next")
