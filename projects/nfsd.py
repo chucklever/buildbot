@@ -118,6 +118,7 @@ kdevopsLtsSchedulerNames = [
     "nfsd-5-15-y",
     "nfsd-5-10-y",
     "nfsd-5-4-y",
+    "queue-6-1",
 ]
 
 # Builders that build the test kernel on the control node
@@ -307,3 +308,11 @@ kdevops_nightly_scheduler(
     hour=21,
 )
 kdevops_force_schedulers(sched_name="queue-6-6")
+
+kdevops_nightly_scheduler(
+    sched_name="queue-6-1",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
+    watched_branch="queue/6.1",
+    hour=23,
+)
+kdevops_force_schedulers(sched_name="queue-6-1")
