@@ -3,6 +3,7 @@ buildbot.tac
 gitpoller-work/
 GitPoller/
 http.*
+services.py
 state.sqlite
 twistd.*
 workers/
