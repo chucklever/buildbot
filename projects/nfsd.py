@@ -114,7 +114,7 @@ kdevopsLtsSchedulerNames = [
     "nfsd-6-6-y",
     "nfsd-6-1-y",
     "nfsd-5-15-y",
-    "nfsd-5.10.y",
+    "nfsd-5-10-y",
 ]
 
 # Builders that build the test kernel on the control node
@@ -279,19 +279,6 @@ def kdevops_force_schedulers(sched_name):
         )
 
 
-c["schedulers"] = [
-    schedulers.ForceScheduler(
-        name="force-nfsd-5-10-y",
-        builderNames=[
-            "nfsd-5.10.y-fstests",
-            "nfsd-5.10.y-gitr",
-            "nfsd-5.10.y-ltp",
-            "nfsd-5.10.y-nfstest",
-            "nfsd-5.10.y-pynfs",
-        ],
-    ),
-]
-
 kdevops_branch_scheduler(
     sched_name="linux-next",
     watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git",
@@ -312,3 +299,5 @@ kdevops_force_schedulers(sched_name="nfsd-6-6-y")
 kdevops_force_schedulers(sched_name="nfsd-6-1-y")
 
 kdevops_force_schedulers(sched_name="nfsd-5-15-y")
+
+kdevops_force_schedulers(sched_name="nfsd-5-10-y")
