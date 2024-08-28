@@ -105,6 +105,107 @@ def kdevops_builder(branch, workflow, workerList):
     )
 
 
+def kdevops_fstests_factory(testBranch, workflow):
+    all_steps = [
+        steps.Git(
+            name="download kdevops",
+            description="downloading",
+            descriptionDone="download",
+            repourl="https://github.com/chucklever/kdevops.git",
+            branch=testBranch,
+            mode="full",
+            method="clobber",
+            alwaysUseLatest=True,
+            progress=False,
+            shallow=True,
+        ),
+        steps.ShellCommand(
+            name="configure kdevops",
+            description="configuring",
+            descriptionDone="configure",
+            command=["make", f"defconfig-nfsd-{workflow}"],
+            workdir="build/",
+            haltOnFailure=True,
+        ),
+        steps.ShellCommand(
+            name="prepare ansible",
+            description="preparing",
+            descriptionDone="prepare",
+            command=["make"],
+            workdir="build/",
+            haltOnFailure=True,
+        ),
+        steps.ShellCommand(
+            name="bring up test nodes",
+            description="launching",
+            descriptionDone="bring-up",
+            command=["make", "bringup"],
+            workdir="build/",
+            haltOnFailure=True,
+        ),
+        steps.ShellCommand(
+            name="build linux",
+            description="building",
+            descriptionDone="build",
+            command=["make", "linux"],
+            workdir="build/",
+            timeout=None,
+            haltOnFailure=True,
+        ),
+        steps.ShellCommand(
+            name="build tests",
+            description="building",
+            descriptionDone="build",
+            command=["make", workflow],
+            workdir="build/",
+            timeout=None,
+            haltOnFailure=True,
+        ),
+        steps.ShellCommand(
+            name="run tests",
+            description="testing",
+            descriptionDone="test",
+            command=["make", f"{workflow}-baseline"],
+            workdir="build/",
+            timeout=5 * 3600,
+            haltOnFailure=True,
+        ),
+        steps.ShellCommand(
+            name="import results",
+            description="importing",
+            descriptionDone="import",
+            command=[
+                "/usr/local/home/kdevops/bin/xfstestsdb-import.sh",
+                f"{testBranch}-{workflow}",
+            ],
+            workdir="build/",
+            timeout=None,
+            haltOnFailure=False,
+        ),
+        steps.ShellCommand(
+            name="clean up",
+            description="quiescing",
+            descriptionDone="quiescing",
+            command=["make", "destroy"],
+            workdir="build/",
+            alwaysRun=True,
+        ),
+    ]
+    factory = util.BuildFactory(all_steps)
+    factory.useProgress = False
+    return factory
+
+
+def kdevops_fstests_builder(branch, workflow, workerList):
+    return util.BuilderConfig(
+        name=f"{branch}-{workflow}",
+        workernames=workerList,
+        tags=["nfsd", "kdevops", f"{branch}", f"{workflow}"],
+        collapseRequests=True,
+        factory=kdevops_fstests_factory(branch, workflow),
+    )
+
+
 kdevopsSchedulerNames = [
     "fs-next",
     "fs-current",
@@ -125,10 +226,9 @@ kdevopsSchedulerNames = [
     "nfsd-5-4-y",
 ]
 
-# Builders that build the test kernel on the control node
 for sched_name in kdevopsSchedulerNames:
     c["builders"].append(
-        kdevops_builder(
+        kdevops_fstests_builder(
             sched_name,
             "fstests",
             [
