@@ -113,7 +113,7 @@ kdevopsLtsSchedulerNames = [
     "nfsd-6-9-y",
     "nfsd-6-6-y",
     "nfsd-6-1-y",
-    "nfsd-5.15.y",
+    "nfsd-5-15-y",
     "nfsd-5.10.y",
 ]
 
@@ -281,16 +281,6 @@ def kdevops_force_schedulers(sched_name):
 
 c["schedulers"] = [
     schedulers.ForceScheduler(
-        name="force-nfsd-5-15-y",
-        builderNames=[
-            "nfsd-5.15.y-fstests",
-            "nfsd-5.15.y-gitr",
-            "nfsd-5.15.y-ltp",
-            "nfsd-5.15.y-nfstest",
-            "nfsd-5.15.y-pynfs",
-        ],
-    ),
-    schedulers.ForceScheduler(
         name="force-nfsd-5-10-y",
         builderNames=[
             "nfsd-5.10.y-fstests",
@@ -320,3 +310,5 @@ kdevops_force_schedulers(sched_name="nfsd-6-9-y")
 kdevops_force_schedulers(sched_name="nfsd-6-6-y")
 
 kdevops_force_schedulers(sched_name="nfsd-6-1-y")
+
+kdevops_force_schedulers(sched_name="nfsd-5-15-y")
