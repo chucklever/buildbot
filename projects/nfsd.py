@@ -277,31 +277,6 @@ def kdevops_force_schedulers(sched_name):
 
 c["schedulers"] = [
     schedulers.SingleBranchScheduler(
-        name="scheduler-nfsd-next",
-        change_filter=util.ChangeFilter(
-            repository="https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git",
-            branch="nfsd-next",
-        ),
-        treeStableTimer=300,
-        builderNames=[
-            "nfsd-next-fstests",
-            "nfsd-next-gitr",
-            "nfsd-next-ltp",
-            "nfsd-next-nfstest",
-            "nfsd-next-pynfs",
-        ],
-    ),
-    schedulers.ForceScheduler(
-        name="force-nfsd-next",
-        builderNames=[
-            "nfsd-next-fstests",
-            "nfsd-next-gitr",
-            "nfsd-next-ltp",
-            "nfsd-next-nfstest",
-            "nfsd-next-pynfs",
-        ],
-    ),
-    schedulers.SingleBranchScheduler(
         name="scheduler-nfsd-fixes",
         change_filter=util.ChangeFilter(
             repository="https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git",
@@ -374,3 +349,5 @@ kdevops_branch_scheduler(
     watched_branch="master",
 )
 kdevops_force_schedulers(sched_name="linux-next")
+
+kdevops_force_schedulers(sched_name="nfsd-next")
