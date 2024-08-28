@@ -20,6 +20,9 @@ c["workers"].append(
 c["workers"].append(
     worker.Worker("kdevops-huge2", util.Secret("worker-kdevops-huge2"), max_builds=1)
 )
+c["workers"].append(
+    worker.Worker("kdevops-huge3", util.Secret("worker-kdevops-huge3"), max_builds=1)
+)
 
 
 def kdevops_factory(testBranch, workflow):
@@ -263,6 +266,7 @@ for sched_name in kdevopsSchedulerNames:
             sched_name,
             "gitr",
             [
+                "kdevops-huge3",
                 "kdevops-huge2",
                 "kdevops-huge",
             ],
@@ -273,6 +277,7 @@ for sched_name in kdevopsSchedulerNames:
             sched_name,
             "ltp",
             [
+                "kdevops-huge3",
                 "kdevops-huge2",
                 "kdevops-huge",
             ],
@@ -283,6 +288,7 @@ for sched_name in kdevopsSchedulerNames:
             sched_name,
             "nfstest",
             [
+                "kdevops-huge3",
                 "kdevops-huge2",
                 "kdevops-huge",
             ],
@@ -293,7 +299,9 @@ for sched_name in kdevopsSchedulerNames:
             sched_name,
             "pynfs",
             [
-                "kdevops-small",
+                "kdevops-huge3",
+                "kdevops-huge2",
+                "kdevops-huge",
             ],
         )
     )
