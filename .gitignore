@@ -1,0 +1,8 @@
+__pycache__/
+buildbot.tac
+gitpoller-work/
+GitPoller/
+http.*
+state.sqlite
+twistd.*
+workers/
