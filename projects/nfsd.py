@@ -110,6 +110,7 @@ kdevopsSchedulerNames = [
 ]
 
 kdevopsLtsSchedulerNames = [
+    "nfsd-6-9-y",
     "nfsd-6.1.y",
     "nfsd-5.15.y",
     "nfsd-5.10.y",
@@ -222,6 +223,7 @@ c["change_source"].append(
             "nfsd-5.10.y",
             "nfsd-5.15.y",
             "nfsd-6.1.y",
+            "nfsd-6.9.y",
             "nfsd-testing",
             "nfsd-fixes",
             "nfsd-next",
@@ -320,3 +322,5 @@ kdevops_force_schedulers(sched_name="nfsd-next")
 kdevops_force_schedulers(sched_name="nfsd-fixes")
 
 kdevops_force_schedulers(sched_name="nfsd-testing")
+
+kdevops_force_schedulers(sched_name="nfsd-6-9-y")
