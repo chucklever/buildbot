@@ -234,6 +234,7 @@ def kdevops_fstests_builder(branch, workflow, workerList):
 kdevopsSchedulerNames = [
     "fs-next",
     "fs-current",
+    "queue-6-11",
     "queue-6-10",
     "queue-6-6",
     "queue-6-1",
@@ -243,6 +244,7 @@ kdevopsSchedulerNames = [
     "nfsd-next",
     "nfsd-fixes",
     "nfsd-testing",
+    "nfsd-6-11-y",
     "nfsd-6-6-y",
     "nfsd-6-1-y",
     "nfsd-5-15-y",
@@ -358,6 +360,8 @@ kdevops_force_schedulers(sched_name="nfsd-fixes")
 
 kdevops_force_schedulers(sched_name="nfsd-testing")
 
+kdevops_force_schedulers(sched_name="nfsd-6-11-y")
+
 kdevops_force_schedulers(sched_name="nfsd-6-6-y")
 
 kdevops_force_schedulers(sched_name="nfsd-6-1-y")
@@ -367,6 +371,15 @@ kdevops_force_schedulers(sched_name="nfsd-5-15-y")
 kdevops_force_schedulers(sched_name="nfsd-5-10-y")
 
 kdevops_force_schedulers(sched_name="nfsd-5-4-y")
+
+kdevops_nightly_scheduler(
+    sched_name="queue-6-11",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
+    watched_branch="queue/6.11",
+    hour=4,
+    minute=1,
+)
+kdevops_force_schedulers(sched_name="queue-6-11")
 
 kdevops_nightly_scheduler(
     sched_name="queue-6-10",
