@@ -248,7 +248,6 @@ kdevopsSchedulerNames = [
     "nfsd-5-15-y",
     "nfsd-5-10-y",
     "nfsd-5-4-y",
-    "localio",
 ]
 
 for sched_name in kdevopsSchedulerNames:
@@ -306,19 +305,6 @@ for sched_name in kdevopsSchedulerNames:
             ],
         )
     )
-
-c["change_source"].append(
-    changes.GitPoller(
-        "https://git.kernel.org/pub/scm/linux/kernel/git/snitzer/linux.git/",
-        branches=[
-            "nfs-localio-for-next",
-        ],
-        pollInterval=7200,
-        pollRandomDelayMin=30,
-        pollRandomDelayMax=300,
-        workdir="/usr/local/home/buildmaster/basedir/GitPoller/localio/",
-    )
-)
 
 kdevopsWorkflowNames = ["fstests", "gitr", "ltp", "nfstest", "pynfs"]
 
@@ -435,15 +421,6 @@ kdevops_nightly_scheduler(
     minute=31,
 )
 kdevops_force_schedulers(sched_name="queue-5-4")
-
-kdevops_nightly_scheduler(
-    sched_name="localio",
-    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/snitzer/linux.git/",
-    watched_branch="nfs-localio-for-next",
-    hour=4,
-    minute=1,
-)
-kdevops_force_schedulers(sched_name="localio")
 
 kdevops_nightly_scheduler(
     sched_name="fs-next",
