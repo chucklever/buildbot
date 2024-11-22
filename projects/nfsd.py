@@ -5,25 +5,6 @@ c["projects"].append(
     util.Project(name="NFSD CI", slug="Upstream NFSD Continuous Integration")
 )
 
-c["workers"].append(
-    worker.Worker("kdevops-small", util.Secret("worker-kdevops-small"), max_builds=1)
-)
-c["workers"].append(
-    worker.Worker("kdevops-large", util.Secret("worker-kdevops-large"), max_builds=1),
-)
-c["workers"].append(
-    worker.Worker("kdevops-large2", util.Secret("worker-kdevops-large2"), max_builds=1),
-)
-c["workers"].append(
-    worker.Worker("kdevops-huge", util.Secret("worker-kdevops-huge"), max_builds=1)
-)
-c["workers"].append(
-    worker.Worker("kdevops-huge2", util.Secret("worker-kdevops-huge2"), max_builds=1)
-)
-c["workers"].append(
-    worker.Worker("kdevops-huge3", util.Secret("worker-kdevops-huge3"), max_builds=1)
-)
-
 
 def kdevops_factory(testBranch, workflow):
     all_steps = [
