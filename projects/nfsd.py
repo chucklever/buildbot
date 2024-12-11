@@ -7,60 +7,11 @@ c["projects"].append(
 
 
 for sched_name in kdevopsSchedulerNames:
-    c["builders"].append(
-        kdevops_fstests_builder(
-            sched_name,
-            "fstests",
-            [
-                "kdevops-large2",
-                "kdevops-large",
-            ],
-        )
-    )
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "gitr",
-            [
-                "kdevops-huge3",
-                "kdevops-huge2",
-                "kdevops-huge",
-            ],
-        )
-    )
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "ltp",
-            [
-                "kdevops-huge3",
-                "kdevops-huge2",
-                "kdevops-huge",
-            ],
-        )
-    )
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "nfstest",
-            [
-                "kdevops-huge3",
-                "kdevops-huge2",
-                "kdevops-huge",
-            ],
-        )
-    )
-    c["builders"].append(
-        kdevops_builder(
-            sched_name,
-            "pynfs",
-            [
-                "kdevops-huge3",
-                "kdevops-huge2",
-                "kdevops-huge",
-            ],
-        )
-    )
+    kdevops_fstests_builder("nfsd", sched_name)
+    kdevops_builder("nfsd", sched_name, "gitr")
+    kdevops_builder("nfsd", sched_name, "ltp")
+    kdevops_builder("nfsd", sched_name, "nfstest")
+    kdevops_builder("nfsd", sched_name, "pynfs")
 
 
 def kdevops_branch_scheduler(sched_name, watched_repo, watched_branch):
@@ -72,7 +23,7 @@ def kdevops_branch_scheduler(sched_name, watched_repo, watched_branch):
             ),
             treeStableTimer=300,
             builderNames=[
-                f"{sched_name}-{workflow}" for workflow in kdevopsWorkflowNames
+                f"{sched_name}-nfsd-{workflow}" for workflow in kdevopsWorkflowNames
             ],
         )
     )
@@ -88,7 +39,7 @@ def kdevops_nightly_scheduler(sched_name, watched_repo, watched_branch, hour, mi
             hour=hour,
             minute=minute,
             builderNames=[
-                f"{sched_name}-{workflow}" for workflow in kdevopsWorkflowNames
+                f"{sched_name}-nfsd-{workflow}" for workflow in kdevopsWorkflowNames
             ],
         )
     )
@@ -99,9 +50,9 @@ def kdevops_force_schedulers(sched_name):
     for workflow in kdevopsWorkflowNames:
         c["schedulers"].append(
             schedulers.ForceScheduler(
-                name=f"force-{sched_name}-{workflow}",
-                builderNames=[f"{sched_name}-{workflow}"],
-                buttonName=f"Start {sched_name}-{workflow}",
+                name=f"force-{sched_name}-nfsd-{workflow}",
+                builderNames=[f"{sched_name}-nfsd-{workflow}"],
+                buttonName=f"Start {sched_name}-nfsd-{workflow}",
             )
         )
 
