@@ -13,6 +13,13 @@ for sched_name in kdevopsSchedulerNames:
     kdevops_builder("nfsd", sched_name, "nfstest")
     kdevops_builder("nfsd", sched_name, "pynfs")
 
+# temporary
+kdevops_aws_fstests_builder("nfsd", "nfsd-next")
+kdevops_aws_builder("nfsd", "nfsd-next", "gitr")
+kdevops_aws_builder("nfsd", "nfsd-next", "ltp")
+kdevops_aws_builder("nfsd", "nfsd-next", "nfstest")
+kdevops_aws_builder("nfsd", "nfsd-next", "pynfs")
+
 
 def kdevops_branch_scheduler(sched_name, watched_repo, watched_branch):
     c["schedulers"].append(
@@ -45,6 +52,33 @@ def kdevops_nightly_scheduler(sched_name, watched_repo, watched_branch, hour, mi
     )
 
 
+def kdevops_aws_nightly_scheduler(sched_name, watched_repo, watched_branch, hour, minute):
+    c["schedulers"].append(
+        schedulers.Nightly(
+            name=f"nightly-{sched_name}-fstests-aws",
+            change_filter=util.ChangeFilter(
+                repository=watched_repo, branch=watched_branch
+            ),
+            hour=hour,
+            minute=minute,
+            builderNames=[f"{sched_name}-nfsd-fstests-aws"],
+        )
+    )
+    c["schedulers"].append(
+        schedulers.Nightly(
+            name=f"nightly-{sched_name}-aws",
+            change_filter=util.ChangeFilter(
+                repository=watched_repo, branch=watched_branch
+            ),
+            hour=hour,
+            minute=minute,
+            builderNames=[
+                f"{sched_name}-nfsd-{workflow}-aws" for workflow in ["gitr", "ltp", "nfstest", "pynfs"]
+            ],
+        )
+    )
+
+
 def kdevops_force_schedulers(sched_name):
     """Add one 'Force' scheduler"""
     for workflow in kdevopsWorkflowNames:
@@ -57,7 +91,33 @@ def kdevops_force_schedulers(sched_name):
         )
 
 
-kdevops_force_schedulers(sched_name="nfsd-next")
+def kdevops_aws_force_schedulers(sched_name):
+    """Add one 'Force' scheduler"""
+    c["schedulers"].append(
+        schedulers.ForceScheduler(
+            name=f"force-{sched_name}-nfsd-fstests-aws",
+            builderNames=[f"{sched_name}-nfsd-fstests-aws"],
+            buttonName=f"Start {sched_name}-nfsd-fstests-aws",
+        )
+    )
+    for workflow in ["gitr", "ltp", "nfstest", "pynfs"]:
+        c["schedulers"].append(
+            schedulers.ForceScheduler(
+                name=f"force-{sched_name}-nfsd-{workflow}-aws",
+                builderNames=[f"{sched_name}-nfsd-{workflow}-aws"],
+                buttonName=f"Start {sched_name}-nfsd-{workflow}-aws",
+            )
+        )
+
+
+kdevops_aws_nightly_scheduler(
+    sched_name="nfsd-next",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git",
+    watched_branch="nfsd-next",
+    hour=11,
+    minute=46,
+)
+kdevops_aws_force_schedulers(sched_name="nfsd-next")
 
 kdevops_force_schedulers(sched_name="nfsd-fixes")
 
