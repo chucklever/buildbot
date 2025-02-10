@@ -63,6 +63,8 @@ kdevops_force_schedulers(sched_name="nfsd-fixes")
 
 kdevops_force_schedulers(sched_name="nfsd-testing")
 
+kdevops_force_schedulers(sched_name="nfsd-6-13-y")
+
 kdevops_force_schedulers(sched_name="nfsd-6-12-y")
 
 kdevops_force_schedulers(sched_name="nfsd-6-6-y")
@@ -74,6 +76,15 @@ kdevops_force_schedulers(sched_name="nfsd-5-15-y")
 kdevops_force_schedulers(sched_name="nfsd-5-10-y")
 
 kdevops_force_schedulers(sched_name="nfsd-5-4-y")
+
+kdevops_nightly_scheduler(
+    sched_name="queue-6-13",
+    watched_repo="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git",
+    watched_branch="queue/6.13",
+    hour=19,
+    minute=1,
+)
+kdevops_force_schedulers(sched_name="queue-6-13")
 
 kdevops_nightly_scheduler(
     sched_name="queue-6-12",
